@@ -156,21 +156,33 @@ impl DataFrame {
             
             //yes or no
             if persona.favc != self.favc[i] {sum += 1.0;} 
-
-            // no , sometimes , frequently, always
-            if persona.caec != self.caec[i] {sum += 1.0;}
-
+            
             // yes or no 
             if persona.smoke != self.smoke[i] {sum += 1.0; }
 
             // yes or no
             if persona.scc != self.scc[i] {sum += 1.0;}
             
+            // Automobile, Motorbike , Bike, Public_Transportation , Walking
+            if persona.mtran != self.mtran[i] {sum += 1.0; }
+
+
+            //----------------------------------------------
+            /*
+            Poner los valores para cada tipo de respuesta. 
+            FALTA IMPLEMENTAR 
+
+            NO | Sometimes | Frequently | Always
+            0  |    0.33   |     0.66   |  0.99 
+            */
+
+            // no , sometimes , frequently, always
+            if persona.caec != self.caec[i] {sum += 1.0;}
+
             // no , sometimes, frequently , always 
             if persona.calc != self.calc[i] {sum += 1.0;}
 
-            // Automobile, Motorbike , Bike, Public_Transportation , Walking
-            if persona.mtran != self.mtran[i] {sum += 1.0; }
+
 
             sum = sum.sqrt();
 
@@ -251,12 +263,10 @@ fn main() {
     
         COSAS QUE FALTAN IMPLEMENTAR 
         1. INPUT DE PERSONA , CON LAS PREGUNTAS DE CADA <-- LEER PDF DE EVALUACIONES
-        2. HACER VALIDACIONES DEL INPUT
-        3. COMPROBAR QUE FUNCIONE TODO CORRECTAMENTE 
+        2. PONER LOS VALORES PARA LOS DATOS CATEGÓRICOS
+        3. CONSIDERAR CALCULAR EL IMC Y PONERLO COMO OTRO ATRIBUTO
     
     */
-
-
     
     let mut persona = Persona{
         gender : String::from("Male"),
