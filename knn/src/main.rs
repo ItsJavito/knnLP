@@ -12,14 +12,14 @@ struct DataFrame {
    peso: Vec<f32>,
    family_overweight : Vec<String>,
    favc: Vec<String>,
-   fcvc: Vec<String>,
-   ncp: Vec<String>,
+   fcvc: Vec<f32>,
+   ncp: Vec<f32>,
    caec: Vec<String>,
    smoke: Vec<String>,
-   ch20: Vec<String>,
+   ch20: Vec<f32>,
    scc: Vec<String>,
-   faf: Vec<String>,
-   tue: Vec<String>,
+   faf: Vec<f32>,
+   tue: Vec<f32>,
    calc: Vec<String>,
    mtran: Vec<String>,
    nobey: Vec<String>
@@ -32,14 +32,14 @@ struct DataFrame {
     peso: f32,
     family_overweight : String,
     favc: String,
-    fcvc: String,
-    ncp: String,
+    fcvc: f32,
+    ncp: f32,
     caec: String,
     smoke: String,
-    ch20: String,
+    ch20: f32,
     scc: String,
-    faf: String,
-    tue: String,
+    faf: f32,
+    tue: f32,
     calc: String,
     mtran: String,
     nobey: String 
@@ -94,14 +94,14 @@ impl DataFrame {
         self.peso.push(row[3].parse().unwrap());
         self.family_overweight.push(row[4].to_string());
         self.favc.push(row[5].to_string());
-        self.fcvc.push(row[6].to_string());
-        self.ncp.push(row[7].to_string());
+        self.fcvc.push(row[6].parse().unwrap());
+        self.ncp.push(row[7].parse().unwrap());
         self.caec.push(row[8].to_string());
         self.smoke.push(row[9].to_string());
-        self.ch20.push(row[10].to_string());
+        self.ch20.push(row[10].parse().unwrap());
         self.scc.push(row[11].to_string());
-        self.faf.push(row[12].to_string());
-        self.tue.push(row[13].to_string());
+        self.faf.push(row[12].parse().unwrap());
+        self.tue.push(row[13].parse().unwrap());
         self.calc.push(row[14].to_string());
         self.mtran.push(row[15].to_string());
         self.nobey.push(row[16].to_string());
@@ -114,33 +114,63 @@ impl DataFrame {
         let (alt_min,  alt_max) = get_min_max(&self.altura);
         let (peso_min,  peso_max) = get_min_max(&self.peso);
 
+        let (fcvc_min,  fcvc_max) = get_min_max(&self.fcvc);
+        let (faf_min,  faf_max) = get_min_max(&self.faf);
+        let (ch20_min, ch20_max) = get_min_max(&self.ch20);
+        let (ncp_min,  ncp_max) = get_min_max(&self.ncp);
+        let (tue_min,  tue_max) = get_min_max(&self.tue);
+
         for i in 1..self.gender.len(){
             let mut sum : f32 = 0.0;
             let obesidad : &String = &self.nobey[i];
 
-
             sum += ((persona.age - age_min) / (age_max - age_min) - 
             (self.age[i] - age_min) / (age_max - age_min)).powf(2.0);
-
+            
             sum += ((persona.altura - alt_min) /(alt_max - alt_min) - 
             (self.altura[i] - alt_min) / (alt_max - alt_min)).powf(2.0);
-
+            
             sum += ((persona.peso - peso_min) / (peso_max - peso_min) - 
-            (self.altura[i] - peso_min) / (peso_max - peso_min)).powf(2.0); 
+            (self.peso[i] - peso_min) / (peso_max - peso_min)).powf(2.0); 
+            
+            sum += ((persona.fcvc - fcvc_min) / (fcvc_max - fcvc_min) - 
+            (self.fcvc[i] - fcvc_min) / (fcvc_max - fcvc_min)).powf(2.0); 
 
-            if persona.gender == self.gender[i] {sum += 1.0;}
-            if persona.family_overweight == self.family_overweight[i] {sum += 1.0;}
-            if persona.favc == self.favc[i] {sum += 1.0;}
-            if persona.fcvc == self.fcvc[i] {sum += 1.0;}
-            if persona.ncp == self.ncp[i] {sum += 1.0;}
-            if persona.caec == self.caec[i] {sum += 1.0;}
-            if persona.smoke == self.smoke[i] {sum += 1.0; }
-            if persona.ch20 == self.ch20[i] {sum += 1.0;}
-            if persona.scc == self.scc[i] {sum += 1.0;}
-            if persona.faf == self.faf[i] {sum += 1.0;}
-            if persona.tue == self.tue[i] {sum += 1.0; }
-            if persona.calc == self.calc[i] {sum += 1.0;}
-            if persona.mtran == self.mtran[i] {sum += 1.0; }
+            sum += ((persona.faf - faf_min) / (faf_max - faf_min) - 
+            (self.faf[i] - faf_min) / (faf_max - faf_min)).powf(2.0); 
+
+            sum += ((persona.ch20 - ch20_min) / (ch20_max - ch20_min) - 
+            (self.ch20[i] - ch20_min) / (ch20_max - ch20_min)).powf(2.0); 
+
+            sum += ((persona.ncp - ncp_min) / (ncp_max - ncp_min) - 
+            (self.ncp[i] - ncp_min) / (ncp_max - ncp_min)).powf(2.0); 
+
+            sum += ((persona.tue - tue_min) / (tue_max - tue_min) - 
+            (self.tue[i] - tue_min) / (tue_max - tue_min)).powf(2.0); 
+
+            // male or female
+            if persona.gender != self.gender[i] {sum += 1.0;}
+
+            // yes or no
+            if persona.family_overweight != self.family_overweight[i] {sum += 1.0;}
+            
+            //yes or no
+            if persona.favc != self.favc[i] {sum += 1.0;} 
+
+            // no , sometimes , frequently, always
+            if persona.caec != self.caec[i] {sum += 1.0;}
+
+            // yes or no 
+            if persona.smoke != self.smoke[i] {sum += 1.0; }
+
+            // yes or no
+            if persona.scc != self.scc[i] {sum += 1.0;}
+            
+            // no , sometimes, frequently , always 
+            if persona.calc != self.calc[i] {sum += 1.0;}
+
+            // Automobile, Motorbike , Bike, Public_Transportation , Walking
+            if persona.mtran != self.mtran[i] {sum += 1.0; }
 
             sum = sum.sqrt();
 
@@ -230,26 +260,26 @@ fn main() {
     
     let mut persona = Persona{
         gender : String::from("Male"),
-        age : 21.0,
-        altura : 1.734,
-        peso : 83.0, 
-        family_overweight : String::from("no"),
+        age : 18.0,
+        altura : 1.87,
+        peso : 173.0, 
+        family_overweight : String::from("yes"),
         favc: String::from("yes"),
-        fcvc: String::from("2"),
-        ncp: String::from("3"),
-        caec: String::from("Sometimes"),
+        fcvc: 3.0, 
+        ncp: 3.0,
+        caec: String::from("Frequently"),
         smoke: String::from("no"),
-        ch20: String::from("2"),
+        ch20: 2.0,
         scc: String::from("no"),
-        faf: String::from("1"),
-        tue: String::from("3"),
+        faf: 2.0,
+        tue: 1.0,
         calc: String::from("Sometimes"),
         mtran: String::from("Public_Transportation"),
         nobey : String::from("")
     };
 
     let dist : Vec<(f32, &String)> = data.calc_distance(&persona);
-    persona.nobey = knn(6, &dist);
+    persona.nobey = knn(20, &dist);
     println!("{:?}" , dist);
     println!("{:?}", persona.nobey); 
 }
