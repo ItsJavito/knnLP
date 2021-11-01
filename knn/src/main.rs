@@ -130,8 +130,8 @@ impl DataFrame {
             sum += ((persona.altura - alt_min) /(alt_max - alt_min) - 
             (self.altura[i] - alt_min) / (alt_max - alt_min)).powf(2.0);
             
-            sum += ((persona.peso - peso_min) / (peso_max - peso_min) - 
-            (self.peso[i] - peso_min) / (peso_max - peso_min)).powf(2.0); 
+            sum += (((persona.peso - peso_min) / (peso_max - peso_min))*2.0 - 
+            ((self.peso[i] - peso_min) / (peso_max - peso_min))*2.0).powf(2.0); 
             
             sum += ((persona.fcvc - fcvc_min) / (fcvc_max - fcvc_min) - 
             (self.fcvc[i] - fcvc_min) / (fcvc_max - fcvc_min)).powf(2.0); 
@@ -177,12 +177,12 @@ impl DataFrame {
             */
 
             // no , sometimes , frequently, always
-            if persona.caec != self.caec[i] {sum += 1.0;}
-
+            sum += (categoric_data(persona.caec.to_string()) - 
+            categoric_data(self.caec[i].to_string())).powf(2.0);
+            
             // no , sometimes, frequently , always 
-            if persona.calc != self.calc[i] {sum += 1.0;}
-
-
+            sum += (categoric_data(persona.calc.to_string()) - 
+            categoric_data(self.calc[i].to_string())).powf(2.0);
 
             sum = sum.sqrt();
 
@@ -191,10 +191,20 @@ impl DataFrame {
         dist.sort_by(|a, b| a.partial_cmp(b).unwrap());
         dist
     }
-
 }
 
 //---- FUNCIONES ----
+
+fn categoric_data(data : String) -> f32{
+    let res : f32 = match data.as_ref(){
+        "no" => 0.0,
+        "Sometimes" => 0.3333,
+        "Frequently" => 0.6666,
+        "Always" => 0.9999,
+        _ => {println!("diff"); 0.0}
+    };
+    res
+}
 
 //Se esta implementando por que en std no hay implementacion con f32
 // pasamos vectores por referencia y obtenemos el valor maximo del vector
@@ -263,8 +273,12 @@ fn main() {
     
         COSAS QUE FALTAN IMPLEMENTAR 
         1. INPUT DE PERSONA , CON LAS PREGUNTAS DE CADA <-- LEER PDF DE EVALUACIONES
-        2. PONER LOS VALORES PARA LOS DATOS CATEGÓRICOS
-        3. CONSIDERAR CALCULAR EL IMC Y PONERLO COMO OTRO ATRIBUTO
+
+        2. VER LA MANERA DE PODER CALCULAR LA IMPORTANCIA DE CADA ATRIBUTO
+           DE ESA FORMA PODREMOS HACER MÁS PRECISA LA RPTA QUE DA EL PROGRAMA
+           PREGUNTAR SI PODEMOS AYUDARNOS EN HALLAR ESOS VALORES A TRAVÉS DE OTROS 
+           LENGUAJES REVISAR -> https://machinelearningmastery.com/feature-selection-with-categorical-data/
+           
     
     */
     
@@ -272,7 +286,7 @@ fn main() {
         gender : String::from("Male"),
         age : 18.0,
         altura : 1.87,
-        peso : 173.0, 
+        peso : 170.0, 
         family_overweight : String::from("yes"),
         favc: String::from("yes"),
         fcvc: 3.0, 
@@ -283,13 +297,14 @@ fn main() {
         scc: String::from("no"),
         faf: 2.0,
         tue: 1.0,
-        calc: String::from("Sometimes"),
+        calc: String::from("Always"),
         mtran: String::from("Public_Transportation"),
         nobey : String::from("")
     };
 
     let dist : Vec<(f32, &String)> = data.calc_distance(&persona);
-    persona.nobey = knn(20, &dist);
+    persona.nobey = knn(30, &dist);
+
     println!("{:?}" , dist);
     println!("{:?}", persona.nobey); 
 }
