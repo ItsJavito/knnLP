@@ -130,8 +130,8 @@ impl DataFrame {
             sum += ((persona.altura - alt_min) /(alt_max - alt_min) - 
             (self.altura[i] - alt_min) / (alt_max - alt_min)).powf(2.0);
             
-            sum += (((persona.peso - peso_min) / (peso_max - peso_min))*2.0 - 
-            ((self.peso[i] - peso_min) / (peso_max - peso_min))*2.0).powf(2.0); 
+            sum += (((persona.peso - peso_min) / (peso_max - peso_min)*3.0) - 
+            ((self.peso[i] - peso_min) / (peso_max - peso_min))*3.0).powf(2.0); 
             
             sum += ((persona.fcvc - fcvc_min) / (fcvc_max - fcvc_min) - 
             (self.fcvc[i] - fcvc_min) / (fcvc_max - fcvc_min)).powf(2.0); 
@@ -286,7 +286,7 @@ fn main() {
         gender : String::from("Male"),
         age : 18.0,
         altura : 1.87,
-        peso : 170.0, 
+        peso : 200.0, 
         family_overweight : String::from("yes"),
         favc: String::from("yes"),
         fcvc: 3.0, 
