@@ -48,11 +48,18 @@ fn knn(mut neigh: i64 , ar : &Vec<(f32 , &String)> ) -> String {
 
 
 fn main() {
+    //se lee la data desde el csv
     let mut data = DataFrame::read_csv("./data.csv", true);
+    //creamos la persona y pedimos por consola los datos
     let mut persona = Persona::new();
-    
+    // asignamos un k 
+    let k = 30;
+
+    //creamos el vector de las distancias con el tiepo 
     let dist : Vec<(f32, &String)> = data.calc_distance(&persona);
-    persona.nobey = knn(30, &dist);
+    
+    //hacemos el knn que nos dará como resultado el tipo de obesidad
+    persona.nobey = knn(k, &dist);
     
     println!("La clasificación de la persona es: {:?}", persona.nobey); 
 }

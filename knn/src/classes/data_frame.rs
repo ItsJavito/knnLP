@@ -58,8 +58,8 @@ impl DataFrame {
 
         // push all the records
         for result in rdr.records().into_iter() {
-        let record = result.unwrap();
-        data_frame.push(&record);
+            let record = result.unwrap();
+            data_frame.push(&record);
         }
         return data_frame;
     }
@@ -146,8 +146,8 @@ impl DataFrame {
 
             //----------------------------------------------
             /*
-            Poner los valores para cada tipo de respuesta. 
-            FALTA IMPLEMENTAR 
+
+            valores de las distancias para cada caso 
 
             NO | Sometimes | Frequently | Always
             0  |    0.33   |     0.66   |  0.99 
@@ -170,6 +170,7 @@ impl DataFrame {
     }
 }
 
+//Funciones implementadas para obtener maximo y minimo, en rust no hay funciones implementadas para f32 
 fn get_max(ar :&Vec<f32>) ->  f32{
     let mut max = f32::MIN; 
     for &i in ar{
