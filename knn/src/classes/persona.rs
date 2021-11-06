@@ -45,7 +45,7 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿Cual es su género?:\tMasculino: 0\tFemenino: 1");
+            println!("¿Cual es su género?\nOPCIONES:\n(0) Masculino\n(1) Femenino");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             gender = match input.trim().parse().unwrap(){
                 0 => String::from("Masculino"),
@@ -88,7 +88,7 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿En su familia alguien sufre o ha sufrido de sobrepeso?:\tSI: 0\tNO: 1");
+            println!("¿En su familia alguien sufre o ha sufrido de sobrepeso?\nOPCIONES:\n(0) SI\n(1) NO");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             family_overweight = match input.trim().parse().unwrap(){
                 0 => String::from("yes"),
@@ -101,7 +101,7 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿Come comida alta en calorias frecuentemente?:\tSI: 0\tNO: 1");
+            println!("¿Come comida alta en calorias frecuentemente?\nOPCIONES:\n(0) SI\n(1) NO");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             favc = match input.trim().parse().unwrap(){
                 0 => String::from("yes"),
@@ -116,7 +116,7 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿Come vegetales en su comida?:\tNunca: 0\tA veces: 1\tSiempre: 2");
+            println!("¿Come vegetales en su comida?\nOPCIONES:\n(0) Nunca\n(1) A veces\n(2) Siempre");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             fcvc = match input.trim().parse().unwrap(){
                 0 => 0.0,
@@ -132,7 +132,7 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿Cuatas comidas principales ingiere en el día?:\tEntre 1 y 2: 0\t3: 1\tMás de 3: 2");
+            println!("¿Cuatas comidas principales ingiere en el día?\nOPCIONES:\n(0) Entre 1 y 2 veces\n(1) 3 veces\n(2) Más de 3 veces");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             ncp = match input.trim().parse().unwrap(){
                 0 => 0.0,
@@ -148,7 +148,7 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿Come algo durante sus comidas?:\tNO: 0\tA veces: 1\tFrecuentemente: 2\tSiempre: 3 ");
+            println!("¿Come algo durante sus comidas?\nOPCIONES:\n(0) Nunca\n(1) A veces\n(2) Frecuentemente\n(3) Siempre");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             caec = match input.trim().parse().unwrap(){
                 0 => String::from("no"),
@@ -165,7 +165,7 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿Usted fuma?:\tSI: 0\tNO: 1 ");
+            println!("¿Usted fuma?\nOPCIONES:\n(0) SI\n(1) NO");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             smoke = match input.trim().parse().unwrap(){
                 0 => String::from("yes"),
@@ -179,7 +179,7 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿Cuanta agua bebe al día?:\tMenos de 1 litro : 0\tEntre 1 y 2 litros: 1\tMás de 2 litros");
+            println!("¿Cuanta agua bebe al día?\nOPCIONES:\n(0) Menos de 1 litro\n(1) Entre 1 y 2 litros\n(2) Más de 2 litros");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             ch20 = match input.trim().parse().unwrap(){
                 0 => 0.0,
@@ -195,7 +195,7 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿Monitorea sus calorías diariamente?:\tSI: 0\tNO: 1 ");
+            println!("¿Monitorea sus calorías diariamente?\nOPCIONES:\n(0) SI\n(1) NO");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             scc = match input.trim().parse().unwrap(){
                 0 => String::from("yes"),
@@ -210,7 +210,7 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿Cuantas veces a la semana hace actividad física?:\tNunca: 0\t1 o 2 días: 1\t2 o 4 dias: 2\t4 o 5 dias: 3");
+            println!("¿Cuantas veces a la semana hace actividad física?\nOPCIONES:\n(0) Nunca\n(1) 1 o 2 dias\n(2) 2 o 4 dias\n(3) 4 o 5 dias");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             faf = match input.trim().parse().unwrap(){
                 0 => 0.0,
@@ -225,7 +225,7 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿Cuanto tiempo usa aparatos tecnológicos?:\t0 a 2 horas: 0\t3 a 5 horas: 1\tMás de 5 horas: 2");
+            println!("¿Cuanto tiempo usa aparatos tecnológicos?\nOPCIONES:\n(0) 0 a 2 horas\n(1) 3 a 5 horas\n(2) Más de 5 horas");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             tue = match input.trim().parse().unwrap(){
                 0 => 0.0,
@@ -241,7 +241,7 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿Que tan amenudo ingiere alcohol?:\tNunca: 0\tA veces: 1\tFrecuentemente: 2\tSiempre: 3");
+            println!("¿Que tan amenudo ingiere alcohol?\nOPCIONES:\n(0) Nunca\n(1) A veces\n(2) Frecuentemente\n(3) Siempre");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             calc = match input.trim().parse().unwrap(){
                 0 => String::from("no"),
@@ -256,7 +256,7 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿Que medio de transporte normalmente usa?:\tCarro: 0\tMotocicleta: 1\tBicicleta: 2\tTransporte público: 3\tCaminar: 4");
+            println!("¿Que medio de transporte normalmente usa?\nOPCIONES:\n(0) Automovil\n(1) Motocileta\n(2) Bicicleta\n(3) Transporte público\n (4) Caminando");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             mtran = match input.trim().parse().unwrap(){
                 0 => String::from("Automobile"),
