@@ -400,8 +400,6 @@ impl Persona{
             };
             break; 
         };
-    
-    
 
         loop
         {
