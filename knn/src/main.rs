@@ -130,8 +130,8 @@ impl DataFrame {
             sum += ((persona.altura - alt_min) /(alt_max - alt_min) - 
             (self.altura[i] - alt_min) / (alt_max - alt_min)).powf(2.0);
             
-            sum += (((persona.peso - peso_min) / (peso_max - peso_min)*3.0) - 
-            ((self.peso[i] - peso_min) / (peso_max - peso_min))*3.0).powf(2.0); 
+            sum += (((persona.peso - peso_min) / (peso_max - peso_min)) - 
+            ((self.peso[i] - peso_min) / (peso_max - peso_min))).powf(2.0); 
             
             sum += ((persona.fcvc - fcvc_min) / (fcvc_max - fcvc_min) - 
             (self.fcvc[i] - fcvc_min) / (fcvc_max - fcvc_min)).powf(2.0); 
@@ -304,7 +304,7 @@ fn main() {
 
     let dist : Vec<(f32, &String)> = data.calc_distance(&persona);
     persona.nobey = knn(30, &dist);
-
+    
     println!("{:?}" , dist);
     println!("{:?}", persona.nobey); 
 }
