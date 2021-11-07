@@ -9,20 +9,19 @@ use std::*;
 
 
 //Algoritmo KNN 
-
-fn knn(mut neigh: i64 , ar : &Vec<(f32 , &String)> ) -> String {
+fn knn(mut k: i64 , ar : &Vec<(f32 , &String)> ) -> String {
 
     let mut res : String = String::from("");
     let mut nearest : HashMap<&String , i32> = HashMap::new();
     let mut indx = 0;
     
-    while neigh > 0 
+    while k > 0 
     {
         let (_, tipo) = &ar[indx]; 
         *nearest.entry(tipo).or_insert(0) += 1;
-        indx += 1; neigh -= 1;
+        indx += 1; k -= 1;
         //si ya no faltan mas vecinos que recorrer
-        if neigh == 0{
+        if k == 0{
             let mut max = i32::MIN;
             let mut flag:bool = false; 
             //Buscamos la moda del tipo de obesidad
@@ -39,7 +38,7 @@ fn knn(mut neigh: i64 , ar : &Vec<(f32 , &String)> ) -> String {
             //Si la moda se repite en 2 tipos de datos entonces 
             // aumentamos en 1 el k
             if flag == true{
-                neigh += 1;
+                k += 1;
             }
         }
     }
@@ -60,6 +59,6 @@ fn main() {
     
     //hacemos el knn que nos dará como resultado el tipo de obesidad
     persona.nobey = knn(k, &dist);
-    
+    println!("{:?}", dist);
     println!("La clasificación de la persona es: {:?}", persona.nobey); 
 }
