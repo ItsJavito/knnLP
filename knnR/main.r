@@ -4,7 +4,7 @@ normalize<-function(val , data , n){
   return((as.numeric(val) - as.numeric(min(data[,n]))) / (as.numeric(max(data[,n]))- as.numeric(min(data[,n]))))
 }
 
-#se categoriza data 0 - 1
+#se categoriza data no, sometimes, frequently, always
 CategoricData <- function(value) {
   if(value == 'no'){
     return(0)}
@@ -19,6 +19,26 @@ CategoricData <- function(value) {
     return(-1)
   }
 }
+
+#se categoriza data walking,bike, pt, motorbike, automobile
+TransData <- function(value) {
+  if(value == 'Walking'){
+    return(0)}
+  else if(value == 'Bike'){
+    return(0.25)
+  }else if(value == 'Public_Transportation'){
+    return(0.5)
+  }else if(value == 'Motorbike'){
+    return(0.75)
+  }else if(value == 'Automobile'){
+    return(1)
+  }else{
+    print("error")
+    return(-1)
+  }
+}
+
+
 
 #funcion calcular distancia
 calcDist <- function(persona , data){
@@ -61,7 +81,8 @@ calcDist <- function(persona , data){
     #calc
     dist = dist + (CategoricData(persona[15]) - CategoricData(data[i,15]))^2
     #mtrans
-    if(data[i,16] != persona[16]) dist = dist + 1
+    dist = dist + (TransData(persona[16]) - TransData(data[i,16]))^2
+    
     dist = sqrt(dist)
     #almacenao la data para dist y el tipo en vectores
     distancia = c(distancia, as.double(dist)) 
