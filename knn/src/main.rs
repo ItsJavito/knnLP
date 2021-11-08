@@ -49,7 +49,27 @@ fn main() {
     //se lee la data desde el csv
     let mut data = DataFrame::read_csv("./data.csv", true);
     //creamos la persona y pedimos por consola los datos
-    let mut persona = Persona::new();
+
+    let mut persona = Persona{
+        gender : String::from("Male"),
+        age : 18.0,
+        altura : 1.87,
+        peso : 90.0, 
+        family_overweight : String::from("yes"),
+        favc: String::from("yes"),
+        fcvc: 3.0, 
+        ncp: 3.0,
+        caec: String::from("Frequently"),
+        smoke: String::from("no"),
+        ch20: 2.0,
+        scc: String::from("no"),
+        faf: 2.0,
+        tue: 1.0,
+        calc: String::from("Sometimes"),
+        mtran: String::from("Public_Transportation"),
+        nobey : String::from("")
+    };
+
     // asignamos un k 
     let k = 30;
 
@@ -58,5 +78,6 @@ fn main() {
     
     //hacemos el knn que nos dará como resultado el tipo de obesidad
     persona.nobey = knn(k, &dist);
+    println!("{:?}" , dist); 
     println!("La clasificación de la persona es: {:?}", persona.nobey); 
 }

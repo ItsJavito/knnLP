@@ -22,6 +22,7 @@ pub struct Persona{
 
 impl Persona{
 
+    #[warn(dead_code)]
     pub fn new() -> Persona{
             
         let gender:String;
