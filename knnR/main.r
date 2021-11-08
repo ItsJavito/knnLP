@@ -1,17 +1,18 @@
+
+#funcion normalizar
 normalize<-function(val , data , n){
   return((as.numeric(val) - as.numeric(min(data[,n]))) / (as.numeric(max(data[,n]))- as.numeric(min(data[,n]))))
 }
 
+#se categoriza data 0 - 1
 CategoricData <- function(value) {
   if(value == 'no'){
-    return(0)
-  }
+    return(0)}
   else if(value == 'Sometimes'){
     return(0.3333)
   }else if(value == 'Frequently'){
     return(0.6666)
-  }
-  else if(value == 'Always'){
+  }else if(value == 'Always'){
     return(1)
   }else{
     print("error")
@@ -19,10 +20,15 @@ CategoricData <- function(value) {
   }
 }
 
+#funcion calcular distancia
 calcDist <- function(persona , data){
-  res = c()
+  #vector donde se va a almazenar la diferencia de la distancia del dataframe con persona
+  #y el tipo de peso que le corresponde
+  tipo <- c()
+  distancia <- c(numeric())
   dist = 0
-  
+
+  #ejemplo pirata y la borda
   for (i in 1:nrow(data)){
     #genero
     if(data[i,1] != persona[1]) dist = dist + 1
@@ -57,24 +63,71 @@ calcDist <- function(persona , data){
     #mtrans
     if(data[i,16] != persona[16]) dist = dist + 1
     dist = sqrt(dist)
-    res = c(res, c((as.numeric(dist)) , data[i,17]))
+    #almacenao la data para dist y el tipo en vectores
+    distancia = c(distancia, as.double(dist)) 
+    tipo = c(tipo,data[i,17])
     dist = 0
   }
-  return(res)
+  distXtipo <- matrix(c(distancia,tipo),nrow = 2111,ncol = 2)
+  return(distXtipo)
 }
 
+#algoritmo knn
+knn <- function(k , distXtipo)
+{
+  cadena = ""
+  index = 1
+  max = 0
+  flag = FALSE
+  
+  #vector (usado como dicc) para asociar los tipos de obesidad mas cercanos
+  #ejemplo de dibujo de diccionario
+  diccTipos <- c("Normal_Weight" = 0 , "Overweight_Level_I" = 0, "Overweight_Level_II" = 0 , "Obesity_Type_III" = 0, 
+                "Obesity_Type_II" = 0 , "Obesity_Type_I" = 0, "Insufficient_Weight" = 0)
+  
+
+  while (k > 0) 
+  {
+    diccTipos[distXtipo[index,2]] <- diccTipos[distXtipo[index,2]] + 1
+    index = index + 1
+    k = k - 1 
+    #si ya no quedan más vecinos por recorrer
+    if(k == 0)
+    {
+      for(i in 1:(length(diccTipos) - 1))
+      {
+        value = diccTipos[i]
+        if(max < value){
+        cadena = names(value)
+        max = value
+        flag = FALSE
+        }
+        else if (max == value){
+          flag = TRUE
+        }
+      }
+      #Si la moda se repite en 2 tipos de datos entonces 
+      #aumentamos en 1 el k
+      if (flag == TRUE)
+      {
+        k = k + 1
+      }
+    }
+  }
+  return(diccTipos)
+}
+
+
 #leemos el csv
-data<-read.csv('./data.csv')
-temp <- nrow(data)
+data<-read.csv('data.csv')
+
 # persona <- rep(NA, 17) <= para cuando hagamos el input
 persona = c('Female', 15, 1.7 , 80, 'yes' , 'yes' , 2 , 2 , 'Always' , 'no' , 3 , 'yes', 0, 0, 'no'
             , 'Walking', 'Normal_weight')
 var = calcDist(persona, data)
+var = var[order(var[,1]),]
 var
-
-
-
-
+knn(7,var)
 
 
 
