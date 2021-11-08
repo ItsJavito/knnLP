@@ -256,7 +256,7 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿Que medio de transporte normalmente usa?\nOPCIONES:\n(0) Automovil\n(1) Motocileta\n(2) Bicicleta\n(3) Transporte público\n (4) Caminando");
+            println!("¿Que medio de transporte normalmente usa?\nOPCIONES:\n(0) Automovil\n(1) Motocileta\n(2) Bicicleta\n(3) Transporte público\n(4) Caminando");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             mtran = match input.trim().parse().unwrap(){
                 0 => String::from("Automobile"),

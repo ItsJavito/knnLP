@@ -5,7 +5,6 @@ use crate::classes::persona::Persona;
 use crate::classes::data_frame::DataFrame;
 
 use std::collections::HashMap;
-use std::*; 
 
 
 //Algoritmo KNN 
@@ -59,6 +58,5 @@ fn main() {
     
     //hacemos el knn que nos dará como resultado el tipo de obesidad
     persona.nobey = knn(k, &dist);
-    println!("{:?}", dist);
     println!("La clasificación de la persona es: {:?}", persona.nobey); 
 }
