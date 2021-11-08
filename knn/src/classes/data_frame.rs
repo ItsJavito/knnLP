@@ -139,20 +139,20 @@ impl DataFrame {
 
             // yes or no
             if persona.scc != self.scc[i] {sum += 1.0;}
-            
+        
+
             // Automobile, Motorbike , Bike, Public_Transportation , Walking
-            if persona.mtran != self.mtran[i] {sum += 1.0; }
-
-
+            sum += (trans_data(persona.mtran.to_string()) - 
+            trans_data(self.mtran[i].to_string())).powf(2.0);
             //----------------------------------------------
             /*
-
+            
             valores de las distancias para cada caso 
-
+            
             NO | Sometimes | Frequently | Always
             0  |    0.33   |     0.66   |  0.99 
             */
-
+            
             // no , sometimes , frequently, always
             sum += (categoric_data(persona.caec.to_string()) - 
             categoric_data(self.caec[i].to_string())).powf(2.0);
@@ -199,6 +199,18 @@ fn categoric_data(data : String) -> f32{
         "Sometimes" => 0.3333,
         "Frequently" => 0.6666,
         "Always" => 0.9999,
+        _ => {println!("diff"); 0.0}
+    };
+    res
+}
+
+fn trans_data(data : String) -> f32{
+    let res : f32 = match data.as_ref(){
+        "Walking" => 0.0,
+        "Bike" => 0.25,
+        "Public_Transportation" => 0.5,
+        "Motorbike" => 0.75,
+        "Automobile" => 1.0, 
         _ => {println!("diff"); 0.0}
     };
     res
