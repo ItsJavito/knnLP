@@ -1,4 +1,5 @@
 use crate::classes::persona::Persona;
+use std::collections::HashMap;
 
 #[derive(Debug)]
 pub struct DataFrame{
@@ -168,6 +169,42 @@ impl DataFrame {
         dist.sort_by(|a, b| a.partial_cmp(b).unwrap());
         dist
     }
+    pub fn knn( &mut self , mut k: i64 , persona: &Persona ) -> String {
+        let ar = self.calc_distance(persona);
+        let mut res : String = String::from("");
+        let mut nearest : HashMap<&String , i32> = HashMap::new();
+        let mut indx = 0;
+        
+        while k > 0 
+        {
+            let (_, tipo) = &ar[indx]; 
+            *nearest.entry(tipo).or_insert(0) += 1;
+            indx += 1; k -= 1;
+            //si ya no faltan mas vecinos que recorrer
+            if k == 0{
+                let mut max = i32::MIN;
+                let mut flag:bool = false; 
+                //Buscamos la moda del tipo de obesidad
+                for (&nom , &cant) in &nearest{
+                    if cant > max {
+                        res = nom.to_string();
+                        max = cant;
+                        flag = false;
+                    }
+                    else if cant == max{
+                        flag = true;
+                    }
+                }
+                //Si la moda se repite en 2 tipos de datos entonces 
+                // aumentamos en 1 el k
+                if flag == true{
+                    k += 1;
+                }
+            }
+        }
+        res
+    }
+
 }
 
 //Funciones implementadas para obtener maximo y minimo, en rust no hay funciones implementadas para f32 
