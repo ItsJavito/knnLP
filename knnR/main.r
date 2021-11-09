@@ -91,6 +91,7 @@ calcDist <- function(persona , data){
     
   }
   distXtipo <- matrix(c(distancia,tipo),nrow = 2111,ncol = 2)
+  distXtipo = distXtipo[order(distXtipo[,1]),]
   return(distXtipo)
 }
 
@@ -140,16 +141,294 @@ knn <- function(k , distXtipo)
   return(cadena)
 }
 
+crear_persona <- function() 
+{
+  
+  while (TRUE) 
+  {
+    gender <- as.integer(readline(writeLines("�Cual es su g�nero?\nOPCIONES:\n(0) Masculino\n(1) Femenino "))) 
+    if (gender == 0) {
+      gender <- "Male"
+      break
+    }
+    else if (gender == 1) {
+      gender <- "Female"
+      break
+    }
+    else
+    {
+      print("Ingresar un valor dentro de las opciones")    
+    }
+  }
+  
+  
+  age <- as.integer(readline("�Cual es su edad?: \n"))
+  
+  height <-as.double(readline("�Cual es su altura en metros?: \n"))
+  
+  weight <-as.double(readline("�Cual es su peso en kg?: \n"))
+  
+  
+  while (TRUE) 
+  {
+    family_overweight <-as.integer(readline(writeLines("�En su familia alguien sufre o ha sufrido de sobrepeso?\nOPCIONES:\n(0) SI\n(1) NO ")))
+    if (family_overweight == 0) {
+      family_overweight <- "yes"
+      break
+    }
+    else if (family_overweight == 1) {
+      family_overweight <- "no"
+      break
+    }
+    else
+    {
+      print("Ingresar un valor dentro de las opciones")    
+    }
+  }
+  
+  
+  
+  while (TRUE) 
+  {
+    favc  <- as.integer(readline(writeLines("�Come comida alta en calorias frecuentemente?\nOPCIONES:\n(0) SI\n(1) NO ")))
+    if (favc == 0) {
+      favc <- "yes"
+      break
+    }
+    else if (favc == 1) {
+      favc <- "no"
+      break
+    }
+    else
+    {
+      print("Ingresar un valor dentro de las opciones")    
+    }
+  }
+  
+  while (TRUE) 
+  {
+    fcvc  <-as.integer(readline(writeLines("�Come vegetales en su comida?\nOPCIONES:\n(0) Nunca\n(1) A veces\n(2) Siempre? ")))
+    if (fcvc == 0) 
+      {
+      fcvc <- 1
+      break
+    }
+    else if (fcvc == 1) {
+      fcvc <- 2
+      break
+    }
+    else if (fcvc == 2) {
+      fcvc <- 3
+      break
+    }
+    else
+    {
+      print("Ingresar un valor dentro de las opciones")    
+    }
+  }
+  
+  while (TRUE) 
+  {
+    ncp  <-as.integer(readline(writeLines("�Cuantas comidas principales ingiere en el d�a?\nOPCIONES:\n(0) Entre 1 y 2 veces\n(1) 3 veces\n(2) M�s de 3 veces ")))
+    if (ncp == 0) 
+    {
+      ncp <- 1.5
+      break
+    }
+    else if (ncp == 1) {
+      ncp <- 3
+      break
+    }
+    else if (ncp == 2) {
+      ncp <- 4
+      break
+    }
+    else
+    {
+      print("Ingresar un valor dentro de las opciones")    
+    }
+  }
+  
+  while (TRUE) 
+  {
+    caec  <- as.integer(readline(writeLines("�Come algo durante sus comidas? \nOPCIONES:\n(0) Nunca\n(1) A veces\n(2) Frecuentemente\n(3) Siempre ")))
+    if (caec == 0) {
+      caec <- "no"
+      break
+    }
+    else if (caec == 1) {
+      caec <- "Sometimes"
+      break
+    }
+    else if (caec == 2) {
+      caec <- "Frequently"
+      break
+    }
+    else if (caec == 3) {
+      caec <- "Always"
+      break
+    }
+    else
+    {
+      print("Ingresar un valor dentro de las opciones")    
+    }
+  }
+  
+  while (TRUE) 
+  {
+    smoke <- as.integer(readline(writeLines("�Usted fuma?\n OPCIONES:\n(0) SI\n(1) NO ")))
+    if (smoke == 0 | smoke == 1) {
+      break
+    }
+    
+    else
+    {
+      print("Ingresar un valor dentro de las opciones")    
+    }
+  }
+  
+  
+  while (TRUE) 
+  {
+    ch20 <-as.integer(readline(writeLines("�Cuanta agua bebe al d�a?\nOPCIONES:\n(0) Menos de 1 litro\n(1) Entre 1 y 2 litros\n(2) M�s de 2 litros ")))
+    
+    if (ch20 == 0) 
+    {
+      ch20 <- 1
+      break
+    }
+    else if (ch20 == 1) {
+      ch20 <- 2
+      break
+    }
+    else if (ch20 == 2) {
+      ch20ncp <- 3
+      break
+    }
+    
+    else
+    {
+      print("Ingresar un valor dentro de las opciones")    
+    }
+  }
+  
+  while (TRUE) 
+  {
+    scc <-as.integer(readline(writeLines("�Monitorea sus calor�as diariamente?\nOPCIONES:\n(0) SI\n(1) NO ")))
+    if (scc == 0) {
+      scc <- "yes"
+      break
+    }
+    else if (scc == 1) {
+      scc <- "no"
+      break
+    }
+    else
+    {
+      print("Ingresar un valor dentro de las opciones")    
+    }
+  }
+  
+  while (TRUE) 
+  {
+    faf <-as.integer(readline(writeLines("�Cuantas veces a la semana hace actividad f�sica?\nOPCIONES:\n(0) Nunca\n(1) 1 o 2 dias\n(2) 2 o 4 dias\n(3) 4 o 5 dias ")))
+    if (faf == 0 | faf == 1 | faf== 2 | faf== 3) {
+      break
+    }
+    
+    else
+    {
+      print("Ingresar un valor dentro de las opciones")    
+    }
+  }
+  
+  
+  while (TRUE) 
+  {
+    tue <-as.integer(readline(writeLines("�Cuanto tiempo usa aparatos tecnol�gicos?\nOPCIONES:\n(0) 0 a 2 horas\n(1) 3 a 5 horas\n(2) M�s de 5 horas ")))
+    if (tue == 0 | tue == 1 | tue== 2) {
+      break
+    }
+    
+    else
+    {
+      print("Ingresar un valor dentro de las opciones")    
+    }
+  }
+  
+  while (TRUE) 
+  {
+    calc <-as.integer(readline(writeLines("�Que tan amenudo ingiere alcohol?\nOPCIONES:\n(0) Nunca\n(1) A veces\n(2) Frecuentemente\n(3) Siempre ")))
+    if (calc == 0) {
+      calc <- "no"
+      break
+    }
+    else if (calc == 1) {
+      calc <- "Sometimes"
+      break
+    }
+    else if (calc == 2) {
+      calc <- "Frequently"
+      break
+    }
+    else if (calc == 3) {
+      calc <- "Always"
+      break
+    }
+    else
+    {
+      print("Ingresar un valor dentro de las opciones")    
+    }
+  }
+  
+  
+  
+  
+  while (TRUE) 
+  {
+    mtran <-as.integer(readline(writeLines("�Que medio de transporte normalmente usa?\nOPCIONES:\n(0) Automovil\n(1) Motocileta\n(2) Bicicleta\n(3) Transporte p�blico\n(4) Caminando ")))
+    if (mtran == 0) {
+      mtran <- "Automobile"
+      break
+    }
+    else if (mtran == 1) {
+      mtran <- "Motorbike"
+      break
+    }
+    else if (mtran == 2) {
+      mtran <- "Bike"
+      break
+    }
+    else if (mtran == 3) {
+      mtran <- "Public_Transportation"
+      break
+    }
+    else if (mtran == 4) {
+      mtran <- "Walking"
+      break
+    }
+    
+    else
+    {
+      print("Ingresar un valor dentro de las opciones")    
+    }
+  }
+  
+  persona = c(gender,age,height,weight,family_overweight,favc,fcvc,ncp,caec,smoke,ch20,scc,faf,tue,calc,mtran)
+  
+  return(persona)
+  
+}
+
+
 
 #leemos el csv
 data<-read.csv('data.csv')
 
 # persona <- rep(NA, 17) <= para cuando hagamos el input
-persona = c('Female', 15, 1.7 , 80, 'yes' , 'yes' , 2 , 2 , 'Always' , 'no' , 3 , 'yes', 0, 0, 'no'
-            , 'Walking', 'Normal_weight')
-var = calcDist(persona, data)
-var = var[order(var[,1]),]
-print(knn(30,var))
+persona = crear_persona()
+
+paste("La clasificaci�n de la persona es:", knn(30,calcDist(persona, data)), sept= " ")
 
 
 
