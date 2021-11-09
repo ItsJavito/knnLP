@@ -48,7 +48,7 @@ impl DataFrame {
             nobey: Vec::new()
         }
     }
-
+    //leemos el csv y lo asignamos a la estructura de dataFrame . 
     pub fn read_csv(filepath: &str, has_headers: bool) -> DataFrame {
         // Open file
         let file = std::fs::File::open(filepath).unwrap();
@@ -65,7 +65,8 @@ impl DataFrame {
         }
         return data_frame;
     }
-
+    
+    //hacemos el push para cada vector. 
     fn push(&mut self, row: &csv::StringRecord) {
         self.gender.push(row[0].to_string());
         self.age.push(row[1].parse().unwrap());
@@ -85,6 +86,13 @@ impl DataFrame {
         self.mtran.push(row[15].to_string());
         self.nobey.push(row[16].to_string());
     }
+
+
+    //Calculamos las distancias desde la persona que se da como parámetro
+    //estas distancias estarán normalizadas 
+    //esta función da como respuesta un vector ordenado por distancias que contiene tuplas 
+    //en la primera posición de la tupla está la distancia 
+    //en la segunda posición está el tipo de obesidad. 
 
     pub fn calc_distance(&mut self , persona: &Persona) -> Vec<(f32 , &String)>{
 
@@ -170,6 +178,9 @@ impl DataFrame {
         dist.sort_by(|a, b| a.partial_cmp(b).unwrap());
         dist
     }
+
+    //Algoritmo de KNN implementado como un método dentro de DataFrame. 
+
     pub fn knn( &mut self , mut k: i64 , persona: &Persona ) -> String {
         let ar = self.calc_distance(persona);
         let mut res : String = String::from("");
