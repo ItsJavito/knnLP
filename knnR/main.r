@@ -46,10 +46,11 @@ calcDist <- function(persona , data){
   #y el tipo de peso que le corresponde
   tipo <- c()
   distancia <- c(numeric())
-  dist = 0
+  
 
   #ejemplo pirata y la borda
   for (i in 1:nrow(data)){
+    dist = 0
     #genero
     if(data[i,1] != persona[1]) dist = dist + 1
     #edad
@@ -87,7 +88,7 @@ calcDist <- function(persona , data){
     #almacenao la data para dist y el tipo en vectores
     distancia = c(distancia, as.double(dist)) 
     tipo = c(tipo,data[i,17])
-    dist = 0
+    
   }
   distXtipo <- matrix(c(distancia,tipo),nrow = 2111,ncol = 2)
   return(distXtipo)
@@ -113,9 +114,10 @@ knn <- function(k , distXtipo)
     index = index + 1
     k = k - 1 
     #si ya no quedan más vecinos por recorrer
+    #cuando el dicc esta completo
     if(k == 0)
     {
-      for(i in 1:(length(diccTipos) - 1))
+      for(i in 1:(length(diccTipos) - 1 ))
       {
         value = diccTipos[i]
         if(max < value){
@@ -135,7 +137,7 @@ knn <- function(k , distXtipo)
       }
     }
   }
-  return(diccTipos)
+  return(cadena)
 }
 
 
@@ -147,8 +149,7 @@ persona = c('Female', 15, 1.7 , 80, 'yes' , 'yes' , 2 , 2 , 'Always' , 'no' , 3 
             , 'Walking', 'Normal_weight')
 var = calcDist(persona, data)
 var = var[order(var[,1]),]
-var
-knn(7,var)
+print(knn(30,var))
 
 
 
