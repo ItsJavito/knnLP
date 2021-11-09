@@ -51,22 +51,22 @@ fn main() {
     //creamos la persona y pedimos por consola los datos
 
     let mut persona = Persona{
-        gender : String::from("Male"),
-        age : 18.0,
-        altura : 1.87,
-        peso : 90.0, 
+        gender : String::from("Female"),
+        age : 15.0,
+        altura : 1.7,
+        peso : 80.0, 
         family_overweight : String::from("yes"),
         favc: String::from("yes"),
-        fcvc: 3.0, 
-        ncp: 3.0,
-        caec: String::from("Frequently"),
+        fcvc: 2.0, 
+        ncp: 2.0,
+        caec: String::from("Always"),
         smoke: String::from("no"),
-        ch20: 2.0,
-        scc: String::from("no"),
-        faf: 2.0,
-        tue: 1.0,
-        calc: String::from("Sometimes"),
-        mtran: String::from("Public_Transportation"),
+        ch20: 3.0,
+        scc: String::from("yes"),
+        faf: 0.0,
+        tue: 0.0,
+        calc: String::from("no"),
+        mtran: String::from("Walking"),
         nobey : String::from("")
     };
 

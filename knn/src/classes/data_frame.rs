@@ -198,7 +198,7 @@ fn categoric_data(data : String) -> f32{
         "no" => 0.0,
         "Sometimes" => 0.3333,
         "Frequently" => 0.6666,
-        "Always" => 0.9999,
+        "Always" => 1.0,
         _ => {println!("diff"); 0.0}
     };
     res
