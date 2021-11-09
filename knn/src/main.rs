@@ -41,7 +41,7 @@ fn knn(mut k: i64 , ar : &Vec<(f32 , &String)> ) -> String {
             }
         }
     }
-    res 
+    res
 }
 
 

@@ -119,9 +119,9 @@ impl Persona{
             println!("¿Come vegetales en su comida?\nOPCIONES:\n(0) Nunca\n(1) A veces\n(2) Siempre");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             fcvc = match input.trim().parse().unwrap(){
-                0 => 0.0,
-                1 => 1.0,
-                2 => 2.0,
+                0 => 1.0,
+                1 => 2.0,
+                2 => 3.0,
                 _ => {println!("Ingresa un numero dentro de los parámetros"); continue}
             };
             break; 
@@ -135,9 +135,9 @@ impl Persona{
             println!("¿Cuatas comidas principales ingiere en el día?\nOPCIONES:\n(0) Entre 1 y 2 veces\n(1) 3 veces\n(2) Más de 3 veces");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             ncp = match input.trim().parse().unwrap(){
-                0 => 0.0,
-                1 => 1.0,
-                2 => 2.0,
+                0 => 1.5,
+                1 => 3.0,
+                2 => 4.0,
                 _ => {println!("Ingresa un numero dentro de los parámetros"); continue}
             };
             break; 
@@ -182,9 +182,9 @@ impl Persona{
             println!("¿Cuanta agua bebe al día?\nOPCIONES:\n(0) Menos de 1 litro\n(1) Entre 1 y 2 litros\n(2) Más de 2 litros");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             ch20 = match input.trim().parse().unwrap(){
-                0 => 0.0,
-                1 => 1.0,
-                2 => 2.0,
+                0 => 1.0,
+                1 => 2.0,
+                2 => 3.0,
                 _ => {println!("Ingresa un numero dentro de los parámetros"); continue}
             };
             break; 
