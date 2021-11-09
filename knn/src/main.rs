@@ -10,13 +10,8 @@ fn main() {
     //creamos la persona y pedimos por consola los datos
     let mut persona = Persona::new();
     // asignamos un k 
-    let k = 30;
-
-    //creamos el vector de las distancias con el tiepo 
-    //let dist : Vec<(f32, &String)> = data.calc_distance(&persona);
-    
+    let k = 30;    
     //hacemos el knn que nos dará como resultado el tipo de obesidad
-    persona.nobey = data.knn(30, &persona);
-
+    persona.nobey = data.knn(k, &persona);
     println!("La clasificación de la persona es: {:?}", persona.nobey); 
 }
