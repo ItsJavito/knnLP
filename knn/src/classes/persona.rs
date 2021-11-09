@@ -48,8 +48,8 @@ impl Persona{
             println!("¿Cual es su género?\nOPCIONES:\n(0) Masculino\n(1) Femenino");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             gender = match input.trim().parse().unwrap(){
-                0 => String::from("Masculino"),
-                1 => String::from("Femenino"),
+                0 => String::from("Male"),
+                1 => String::from("Female"),
                 _ => {println!("Ingresa un numero dentro de los parámetros"); continue}
             };
             break; 
