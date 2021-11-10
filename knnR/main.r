@@ -1,3 +1,5 @@
+#grupo Javier Olaz√°bal - Sebasti√°n Ch√°varry - Fabrizio figari - Fiorella Valdivia
+
 #funcion normalizar
 normalize<-function(val , data , n){
   return((as.numeric(val) - as.numeric(min(data[,n]))) / (as.numeric(max(data[,n]))- as.numeric(min(data[,n]))))
@@ -112,7 +114,7 @@ knn <- function(k , distXtipo)
     diccTipos[distXtipo[index,2]] <- diccTipos[distXtipo[index,2]] + 1
     index = index + 1
     k = k - 1 
-    #si ya no quedan m·s vecinos por recorrer
+    #si ya no quedan mÔøΩs vecinos por recorrer
     #cuando el dicc esta completo
     if(k == 0)
     {
@@ -228,7 +230,7 @@ crear_persona <- function()
   
   while (TRUE) 
   {
-    ncp  <-as.integer(readline(writeLines("Cuantas comidas principales ingiere en el dia?\nOPCIONES:\nINgrese un n˙mero entre 1-4")))
+    ncp  <-as.integer(readline(writeLines("Cuantas comidas principales ingiere en el dia?\nOPCIONES:\nINgrese un nÔøΩmero entre 1-4")))
     if (ncp >= 1 | ncp <=4){ 
       break
     }

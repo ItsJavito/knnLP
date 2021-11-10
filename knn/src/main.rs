@@ -4,6 +4,14 @@ mod classes;
 use crate::classes::persona::Persona;
 use crate::classes::data_frame::DataFrame;
 
+/**
+ * Grupo
+ * Javier Olazábal 
+ * Sebastian Chávarry 
+ * Fiorella Valdivia 
+ * Frabrizio figari
+*/
+
 fn main() {
     //se lee la data desde el csv
     let mut data = DataFrame::read_csv("./data.csv", true);
