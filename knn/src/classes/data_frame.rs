@@ -179,6 +179,7 @@ impl DataFrame {
         dist
     }
 
+
     //Algoritmo de KNN implementado como un método dentro de DataFrame. 
 
     pub fn knn( &mut self , mut k: i64 , persona: &Persona ) -> String {

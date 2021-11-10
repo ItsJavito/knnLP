@@ -41,13 +41,12 @@ TransData <- function(value) {
 
 #funcion calcular distancia
 calcDist <- function(persona , data){
-  #vector donde se va a almazenar la diferencia de la distancia del dataframe con persona
+  #vector donde se va a almacenar la diferencia de la distancia del dataframe con persona
   #y el tipo de peso que le corresponde
   tipo <- c()
   distancia <- c(numeric())
   
   
-  #ejemplo pirata y la borda
   for (i in 1:nrow(data)){
     dist = 0
     #genero
@@ -143,9 +142,10 @@ knn <- function(k , distXtipo)
 crear_persona <- function() 
 {
   
+  
   while (TRUE) 
   {
-    gender <- as.integer(readline(writeLines("Cual es su genero?\nOPCIONES:\n(0) Masculino\n(1) Femenino "))) 
+    gender <- as.integer(readline(writeLines("Cual es su genero?\nOPCIONES:\n(0) Masculino\n(1) Femenino ")))
     if (gender == 0) {
       gender <- "Male"
       break
@@ -228,7 +228,7 @@ crear_persona <- function()
   
   while (TRUE) 
   {
-    ncp  <-as.integer(readline(writeLines("Cuantas comidas principales ingiere en el dia?\nOPCIONES:\n(0) Entre 1 y 2 veces\n(1) 3 veces\n(2) Mas de 3 veces ")))
+    ncp  <-as.integer(readline(writeLines("Cuantas comidas principales ingiere en el dia?\nOPCIONES:\nINgrese un número entre 1-4")))
     if (ncp >= 1 | ncp <=4){ 
       break
     }
@@ -296,7 +296,7 @@ crear_persona <- function()
       break
     }
     else if (ch20 == 2) {
-      ch20ncp <- 3
+      ch20 <- 3
       break
     }
     
@@ -420,7 +420,10 @@ crear_persona <- function()
 data<-read.csv('data.csv')
 
 # persona <- rep(NA, 17) <= para cuando hagamos el input
-persona = crear_persona()
+persona <- crear_persona()
+#print(persona)
+
+#persona2 <- c('Female', 15, 1.7 , 80, 'yes' , 'yes' , 2 , 2 , 'Always' , 'no' , 3 , 'yes', 0, 0, 'no','Walking')
 
 paste("La clasificacion de la persona es:", knn(30,calcDist(persona, data)), sept= " ")
 
