@@ -1,4 +1,3 @@
-
 #funcion normalizar
 normalize<-function(val , data , n){
   return((as.numeric(val) - as.numeric(min(data[,n]))) / (as.numeric(max(data[,n]))- as.numeric(min(data[,n]))))
@@ -47,7 +46,7 @@ calcDist <- function(persona , data){
   tipo <- c()
   distancia <- c(numeric())
   
-
+  
   #ejemplo pirata y la borda
   for (i in 1:nrow(data)){
     dist = 0
@@ -106,15 +105,15 @@ knn <- function(k , distXtipo)
   #vector (usado como dicc) para asociar los tipos de obesidad mas cercanos
   #ejemplo de dibujo de diccionario
   diccTipos <- c("Normal_Weight" = 0 , "Overweight_Level_I" = 0, "Overweight_Level_II" = 0 , "Obesity_Type_III" = 0, 
-                "Obesity_Type_II" = 0 , "Obesity_Type_I" = 0, "Insufficient_Weight" = 0)
+                 "Obesity_Type_II" = 0 , "Obesity_Type_I" = 0, "Insufficient_Weight" = 0)
   
-
+  
   while (k > 0) 
   {
     diccTipos[distXtipo[index,2]] <- diccTipos[distXtipo[index,2]] + 1
     index = index + 1
     k = k - 1 
-    #si ya no quedan mÃ¡s vecinos por recorrer
+    #si ya no quedan más vecinos por recorrer
     #cuando el dicc esta completo
     if(k == 0)
     {
@@ -122,9 +121,9 @@ knn <- function(k , distXtipo)
       {
         value = diccTipos[i]
         if(max < value){
-        cadena = names(value)
-        max = value
-        flag = FALSE
+          cadena = names(value)
+          max = value
+          flag = FALSE
         }
         else if (max == value){
           flag = TRUE
@@ -146,7 +145,7 @@ crear_persona <- function()
   
   while (TRUE) 
   {
-    gender <- as.integer(readline(writeLines("ï¿½Cual es su gï¿½nero?\nOPCIONES:\n(0) Masculino\n(1) Femenino "))) 
+    gender <- as.integer(readline(writeLines("Cual es su genero?\nOPCIONES:\n(0) Masculino\n(1) Femenino "))) 
     if (gender == 0) {
       gender <- "Male"
       break
@@ -162,16 +161,16 @@ crear_persona <- function()
   }
   
   
-  age <- as.integer(readline("ï¿½Cual es su edad?: \n"))
+  age <- as.integer(readline("Cual es su edad?: \n"))
   
-  height <-as.double(readline("ï¿½Cual es su altura en metros?: \n"))
+  height <-as.double(readline("Cual es su altura en metros?: \n"))
   
-  weight <-as.double(readline("ï¿½Cual es su peso en kg?: \n"))
+  weight <-as.double(readline("Cual es su peso en kg?: \n"))
   
   
   while (TRUE) 
   {
-    family_overweight <-as.integer(readline(writeLines("ï¿½En su familia alguien sufre o ha sufrido de sobrepeso?\nOPCIONES:\n(0) SI\n(1) NO ")))
+    family_overweight <-as.integer(readline(writeLines("En su familia alguien sufre o ha sufrido de sobrepeso?\nOPCIONES:\n(0) SI\n(1) NO ")))
     if (family_overweight == 0) {
       family_overweight <- "yes"
       break
@@ -190,7 +189,7 @@ crear_persona <- function()
   
   while (TRUE) 
   {
-    favc  <- as.integer(readline(writeLines("ï¿½Come comida alta en calorias frecuentemente?\nOPCIONES:\n(0) SI\n(1) NO ")))
+    favc  <- as.integer(readline(writeLines("Come comida alta en calorias frecuentemente?\nOPCIONES:\n(0) SI\n(1) NO ")))
     if (favc == 0) {
       favc <- "yes"
       break
@@ -207,9 +206,9 @@ crear_persona <- function()
   
   while (TRUE) 
   {
-    fcvc  <-as.integer(readline(writeLines("ï¿½Come vegetales en su comida?\nOPCIONES:\n(0) Nunca\n(1) A veces\n(2) Siempre? ")))
+    fcvc  <-as.integer(readline(writeLines("Come vegetales en su comida?\nOPCIONES:\n(0) Nunca\n(1) A veces\n(2) Siempre? ")))
     if (fcvc == 0) 
-      {
+    {
       fcvc <- 1
       break
     }
@@ -229,18 +228,8 @@ crear_persona <- function()
   
   while (TRUE) 
   {
-    ncp  <-as.integer(readline(writeLines("ï¿½Cuantas comidas principales ingiere en el dï¿½a?\nOPCIONES:\n(0) Entre 1 y 2 veces\n(1) 3 veces\n(2) Mï¿½s de 3 veces ")))
-    if (ncp == 0) 
-    {
-      ncp <- 1.5
-      break
-    }
-    else if (ncp == 1) {
-      ncp <- 3
-      break
-    }
-    else if (ncp == 2) {
-      ncp <- 4
+    ncp  <-as.integer(readline(writeLines("Cuantas comidas principales ingiere en el dia?\nOPCIONES:\n(0) Entre 1 y 2 veces\n(1) 3 veces\n(2) Mas de 3 veces ")))
+    if (ncp >= 1 | ncp <=4){ 
       break
     }
     else
@@ -251,7 +240,7 @@ crear_persona <- function()
   
   while (TRUE) 
   {
-    caec  <- as.integer(readline(writeLines("ï¿½Come algo durante sus comidas? \nOPCIONES:\n(0) Nunca\n(1) A veces\n(2) Frecuentemente\n(3) Siempre ")))
+    caec  <- as.integer(readline(writeLines("Come algo durante sus comidas? \nOPCIONES:\n(0) Nunca\n(1) A veces\n(2) Frecuentemente\n(3) Siempre ")))
     if (caec == 0) {
       caec <- "no"
       break
@@ -276,8 +265,13 @@ crear_persona <- function()
   
   while (TRUE) 
   {
-    smoke <- as.integer(readline(writeLines("ï¿½Usted fuma?\n OPCIONES:\n(0) SI\n(1) NO ")))
-    if (smoke == 0 | smoke == 1) {
+    smoke <- as.integer(readline(writeLines("Usted fuma?\n OPCIONES:\n(0) SI\n(1) NO ")))
+    if (smoke == 0) {
+      smoke <- "yes"
+      break
+    }
+    else if (smoke == 1) {
+      smoke <- "no"
       break
     }
     
@@ -290,7 +284,7 @@ crear_persona <- function()
   
   while (TRUE) 
   {
-    ch20 <-as.integer(readline(writeLines("ï¿½Cuanta agua bebe al dï¿½a?\nOPCIONES:\n(0) Menos de 1 litro\n(1) Entre 1 y 2 litros\n(2) Mï¿½s de 2 litros ")))
+    ch20 <-as.integer(readline(writeLines("Cuanta agua bebe al dia?\nOPCIONES:\n(0) Menos de 1 litro\n(1) Entre 1 y 2 litros\n(2) Mas de 2 litros ")))
     
     if (ch20 == 0) 
     {
@@ -314,7 +308,7 @@ crear_persona <- function()
   
   while (TRUE) 
   {
-    scc <-as.integer(readline(writeLines("ï¿½Monitorea sus calorï¿½as diariamente?\nOPCIONES:\n(0) SI\n(1) NO ")))
+    scc <-as.integer(readline(writeLines("Monitorea sus calorias diariamente?\nOPCIONES:\n(0) SI\n(1) NO ")))
     if (scc == 0) {
       scc <- "yes"
       break
@@ -331,7 +325,7 @@ crear_persona <- function()
   
   while (TRUE) 
   {
-    faf <-as.integer(readline(writeLines("ï¿½Cuantas veces a la semana hace actividad fï¿½sica?\nOPCIONES:\n(0) Nunca\n(1) 1 o 2 dias\n(2) 2 o 4 dias\n(3) 4 o 5 dias ")))
+    faf <-as.integer(readline(writeLines("Cuantas veces a la semana hace actividad fisica?\nOPCIONES:\n(0) Nunca\n(1) 1 o 2 dias\n(2) 2 o 4 dias\n(3) 4 o 5 dias ")))
     if (faf == 0 | faf == 1 | faf== 2 | faf== 3) {
       break
     }
@@ -345,7 +339,7 @@ crear_persona <- function()
   
   while (TRUE) 
   {
-    tue <-as.integer(readline(writeLines("ï¿½Cuanto tiempo usa aparatos tecnolï¿½gicos?\nOPCIONES:\n(0) 0 a 2 horas\n(1) 3 a 5 horas\n(2) Mï¿½s de 5 horas ")))
+    tue <-as.integer(readline(writeLines("Cuanto tiempo usa aparatos tecnologicos?\nOPCIONES:\n(0) 0 a 2 horas\n(1) 3 a 5 horas\n(2) Mas de 5 horas ")))
     if (tue == 0 | tue == 1 | tue== 2) {
       break
     }
@@ -358,7 +352,7 @@ crear_persona <- function()
   
   while (TRUE) 
   {
-    calc <-as.integer(readline(writeLines("ï¿½Que tan amenudo ingiere alcohol?\nOPCIONES:\n(0) Nunca\n(1) A veces\n(2) Frecuentemente\n(3) Siempre ")))
+    calc <-as.integer(readline(writeLines("Que tan amenudo ingiere alcohol?\nOPCIONES:\n(0) Nunca\n(1) A veces\n(2) Frecuentemente\n(3) Siempre ")))
     if (calc == 0) {
       calc <- "no"
       break
@@ -386,7 +380,7 @@ crear_persona <- function()
   
   while (TRUE) 
   {
-    mtran <-as.integer(readline(writeLines("ï¿½Que medio de transporte normalmente usa?\nOPCIONES:\n(0) Automovil\n(1) Motocileta\n(2) Bicicleta\n(3) Transporte pï¿½blico\n(4) Caminando ")))
+    mtran <-as.integer(readline(writeLines("Que medio de transporte normalmente usa?\nOPCIONES:\n(0) Automovil\n(1) Motocileta\n(2) Bicicleta\n(3) Transporte publico\n(4) Caminando ")))
     if (mtran == 0) {
       mtran <- "Automobile"
       break
@@ -428,7 +422,5 @@ data<-read.csv('data.csv')
 # persona <- rep(NA, 17) <= para cuando hagamos el input
 persona = crear_persona()
 
-paste("La clasificaciï¿½n de la persona es:", knn(30,calcDist(persona, data)), sept= " ")
-
-
+paste("La clasificacion de la persona es:", knn(30,calcDist(persona, data)), sept= " ")
 
