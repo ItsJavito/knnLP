@@ -132,12 +132,13 @@ impl Persona{
         loop
         {
             let mut input = String::new(); 
-            println!("¿Cuatas comidas principales ingiere en el día?\nOPCIONES:\n(0) Entre 1 y 2 veces\n(1) 3 veces\n(2) Más de 3 veces");
+            println!("¿Cuatas comidas principales ingiere en el día?\nOPCIONES:\nIngrese un numero en el rango entre 1 - 4");
             io::stdin().read_line(&mut input).expect("Solo números dentro del rango establecido");
             ncp = match input.trim().parse().unwrap(){
-                0 => 1.5,
-                1 => 3.0,
-                2 => 4.0,
+                1 => 1.0,
+                2 => 2.0,
+                3 => 3.0,
+                4 => 4.0,
                 _ => {println!("Ingresa un numero dentro de los parámetros"); continue}
             };
             break; 
