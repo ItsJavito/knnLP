@@ -9,7 +9,7 @@ use crate::classes::data_frame::DataFrame;
  * Javier Olazábal 
  * Sebastian Chávarry 
  * Fiorella Valdivia 
- * Frabrizio figari
+ * Fabrizio figari
 */
 
 fn main() {
