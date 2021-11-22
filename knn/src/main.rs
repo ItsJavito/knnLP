@@ -3,6 +3,8 @@ mod classes;
 
 use crate::classes::persona::Persona;
 use crate::classes::data_frame::DataFrame;
+use std::time::Instant;
+
 
 /**
  * Grupo
@@ -20,6 +22,9 @@ fn main() {
     // asignamos un k 
     let k = 30;    
     //hacemos el knn que nos dará como resultado el tipo de obesidad
+    let start = Instant::now();
     persona.nobey = data.knn(k, &persona);
+    let elapsed = start.elapsed();
+    println!("{:?}" , elapsed);
     println!("La clasificación de la persona es: {:?}", persona.nobey); 
 }
