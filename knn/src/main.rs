@@ -10,7 +10,7 @@ use std::time::Instant;
  * Javier Olazábal 
  * Sebastian Chávarry 
  * Fiorella Valdivia 
- * Frabrizio figari
+ * Fabrizio figari
 */
 
 fn main() {
