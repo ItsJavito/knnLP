@@ -1,5 +1,4 @@
 use std::io; 
-
 pub struct Persona{
     pub gender: String,
     pub age:  f32,
@@ -21,7 +20,6 @@ pub struct Persona{
 }
 
 impl Persona{
-
     pub fn new() -> Persona{
             
         let gender:String;

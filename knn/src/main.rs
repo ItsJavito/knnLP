@@ -1,6 +1,5 @@
 extern crate csv;
 mod classes;
-
 use crate::classes::persona::Persona;
 use crate::classes::data_frame::DataFrame;
 use std::time::Instant;
@@ -44,7 +43,7 @@ fn main() {
     let start = Instant::now();
     persona.nobey = data.knn(k, &persona);
     let elapsed = start.elapsed();
-    
-    println!("{:?}" , elapsed);
+    // ejecutar con cargo run --release
+    println!("Tiempo de ejecucion: {:?}" , elapsed);
     println!("La clasificación de la persona es: {:?}", persona.nobey); 
 }
