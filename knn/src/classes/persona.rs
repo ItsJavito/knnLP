@@ -288,5 +288,6 @@ impl Persona{
             nobey: "".to_string()
         }
     }
+    
 
 }
