@@ -3,12 +3,11 @@ extern crate cpu_monitor;
 mod classes;
 use mem_macros::size_of;
 
-use crate::classes::persona::{self, Persona};
+use crate::classes::persona::{Persona};
 use crate::classes::data_frame::DataFrame;
 use std::time::Instant;
 extern crate mem_macros;
 use std::io;
-use std::time::Duration;
 use cpu_monitor::CpuInstant;
 
 /**
