@@ -3,13 +3,13 @@ use crate::classes::utility::*;
 use std::collections::HashMap;
 
 #[derive(Debug)]
-pub struct DataFrame{
+pub struct DataFrame {
     header: csv::StringRecord,
     gender: Vec<String>,
-    age:  Vec<f32>,
+    age: Vec<f32>,
     altura: Vec<f32>,
     peso: Vec<f32>,
-    family_overweight : Vec<String>,
+    family_overweight: Vec<String>,
     favc: Vec<String>,
     fcvc: Vec<f32>,
     ncp: Vec<f32>,
@@ -21,11 +21,10 @@ pub struct DataFrame{
     tue: Vec<f32>,
     calc: Vec<String>,
     mtran: Vec<String>,
-    nobey: Vec<String>
+    nobey: Vec<String>,
 }
 
 impl DataFrame {
-
     fn new() -> DataFrame {
         DataFrame {
             header: csv::StringRecord::new(),
@@ -33,7 +32,7 @@ impl DataFrame {
             age: Vec::new(),
             altura: Vec::new(),
             peso: Vec::new(),
-            family_overweight : Vec::new(),
+            family_overweight: Vec::new(),
             favc: Vec::new(),
             fcvc: Vec::new(),
             ncp: Vec::new(),
@@ -45,16 +44,16 @@ impl DataFrame {
             tue: Vec::new(),
             calc: Vec::new(),
             mtran: Vec::new(),
-            nobey: Vec::new()
+            nobey: Vec::new(),
         }
     }
-    //leemos el csv y lo asignamos a la estructura de dataFrame . 
+    //leemos el csv y lo asignamos a la estructura de dataFrame .
     pub fn read_csv(filepath: &str, has_headers: bool) -> DataFrame {
         // Open file
         let file = std::fs::File::open(filepath).unwrap();
         let mut rdr = csv::ReaderBuilder::new()
-        .has_headers(has_headers)
-        .from_reader(file);
+            .has_headers(has_headers)
+            .from_reader(file);
 
         let mut data_frame = DataFrame::new();
 
@@ -65,8 +64,8 @@ impl DataFrame {
         }
         return data_frame;
     }
-    
-    //hacemos el push para cada vector. 
+
+    //hacemos el push para cada vector.
     fn push(&mut self, row: &csv::StringRecord) {
         self.gender.push(row[0].to_string());
         self.age.push(row[1].parse().unwrap());
@@ -87,89 +86,106 @@ impl DataFrame {
         self.nobey.push(row[16].to_string());
     }
 
-
     //Calculamos las distancias desde la persona que se da como parámetro
-    //estas distancias estarán normalizadas 
-    //esta función da como respuesta un vector ordenado por distancias que contiene tuplas 
-    //en la primera posición de la tupla está la distancia 
-    //en la segunda posición está el tipo de obesidad. 
+    //estas distancias estarán normalizadas
+    //esta función da como respuesta un vector ordenado por distancias que contiene tuplas
+    //en la primera posición de la tupla está la distancia
+    //en la segunda posición está el tipo de obesidad.
 
-    pub fn calc_distance(&mut self , persona: &Persona) -> Vec<(f32 , &String)>{
+    pub fn calc_distance(&mut self, persona: &Persona) -> Vec<(f32, &String)> {
+        let mut dist: Vec<(f32, &String)> = Vec::new();
+        let (age_min, age_max) = get_min_max(&self.age);
+        let (alt_min, alt_max) = get_min_max(&self.altura);
+        let (peso_min, peso_max) = get_min_max(&self.peso);
 
-        let mut dist : Vec <(f32, &String)> = Vec::new();
-        let (age_min,  age_max) = get_min_max(&self.age);
-        let (alt_min,  alt_max) = get_min_max(&self.altura);
-        let (peso_min,  peso_max) = get_min_max(&self.peso);
-
-        let (fcvc_min,  fcvc_max) = get_min_max(&self.fcvc);
-        let (faf_min,  faf_max) = get_min_max(&self.faf);
+        let (fcvc_min, fcvc_max) = get_min_max(&self.fcvc);
+        let (faf_min, faf_max) = get_min_max(&self.faf);
         let (ch20_min, ch20_max) = get_min_max(&self.ch20);
-        let (ncp_min,  ncp_max) = get_min_max(&self.ncp);
-        let (tue_min,  tue_max) = get_min_max(&self.tue);
+        let (ncp_min, ncp_max) = get_min_max(&self.ncp);
+        let (tue_min, tue_max) = get_min_max(&self.tue);
 
-        for i in 1..self.gender.len(){
-            let mut sum : f32 = 0.0;
-            let obesidad : &String = &self.nobey[i];
+        for i in 1..self.gender.len() {
+            let mut sum: f32 = 0.0;
+            let obesidad: &String = &self.nobey[i];
 
-            sum += ((persona.age - age_min) / (age_max - age_min) - 
-            (self.age[i] - age_min) / (age_max - age_min)).powf(2.0);
-            
-            sum += ((persona.altura - alt_min) /(alt_max - alt_min) - 
-            (self.altura[i] - alt_min) / (alt_max - alt_min)).powf(2.0);
-            
-            sum += (((persona.peso - peso_min) / (peso_max - peso_min)) - 
-            ((self.peso[i] - peso_min) / (peso_max - peso_min))).powf(2.0); 
-            
-            sum += ((persona.fcvc - fcvc_min) / (fcvc_max - fcvc_min) - 
-            (self.fcvc[i] - fcvc_min) / (fcvc_max - fcvc_min)).powf(2.0); 
+            sum += ((persona.age - age_min) / (age_max - age_min)
+                - (self.age[i] - age_min) / (age_max - age_min))
+                .powf(2.0);
 
-            sum += ((persona.faf - faf_min) / (faf_max - faf_min) - 
-            (self.faf[i] - faf_min) / (faf_max - faf_min)).powf(2.0); 
+            sum += ((persona.altura - alt_min) / (alt_max - alt_min)
+                - (self.altura[i] - alt_min) / (alt_max - alt_min))
+                .powf(2.0);
 
-            sum += ((persona.ch20 - ch20_min) / (ch20_max - ch20_min) - 
-            (self.ch20[i] - ch20_min) / (ch20_max - ch20_min)).powf(2.0); 
+            sum += (((persona.peso - peso_min) / (peso_max - peso_min))
+                - ((self.peso[i] - peso_min) / (peso_max - peso_min)))
+                .powf(2.0);
 
-            sum += ((persona.ncp - ncp_min) / (ncp_max - ncp_min) - 
-            (self.ncp[i] - ncp_min) / (ncp_max - ncp_min)).powf(2.0); 
+            sum += ((persona.fcvc - fcvc_min) / (fcvc_max - fcvc_min)
+                - (self.fcvc[i] - fcvc_min) / (fcvc_max - fcvc_min))
+                .powf(2.0);
 
-            sum += ((persona.tue - tue_min) / (tue_max - tue_min) - 
-            (self.tue[i] - tue_min) / (tue_max - tue_min)).powf(2.0); 
+            sum += ((persona.faf - faf_min) / (faf_max - faf_min)
+                - (self.faf[i] - faf_min) / (faf_max - faf_min))
+                .powf(2.0);
+
+            sum += ((persona.ch20 - ch20_min) / (ch20_max - ch20_min)
+                - (self.ch20[i] - ch20_min) / (ch20_max - ch20_min))
+                .powf(2.0);
+
+            sum += ((persona.ncp - ncp_min) / (ncp_max - ncp_min)
+                - (self.ncp[i] - ncp_min) / (ncp_max - ncp_min))
+                .powf(2.0);
+
+            sum += ((persona.tue - tue_min) / (tue_max - tue_min)
+                - (self.tue[i] - tue_min) / (tue_max - tue_min))
+                .powf(2.0);
 
             // male or female
-            if persona.gender != self.gender[i] {sum += 1.0;}
+            if persona.gender != self.gender[i] {
+                sum += 1.0;
+            }
 
             // yes or no
-            if persona.family_overweight != self.family_overweight[i] {sum += 1.0;}
-            
+            if persona.family_overweight != self.family_overweight[i] {
+                sum += 1.0;
+            }
+
             //yes or no
-            if persona.favc != self.favc[i] {sum += 1.0;} 
-            
-            // yes or no 
-            if persona.smoke != self.smoke[i] {sum += 1.0; }
+            if persona.favc != self.favc[i] {
+                sum += 1.0;
+            }
 
             // yes or no
-            if persona.scc != self.scc[i] {sum += 1.0;}
-        
+            if persona.smoke != self.smoke[i] {
+                sum += 1.0;
+            }
+
+            // yes or no
+            if persona.scc != self.scc[i] {
+                sum += 1.0;
+            }
 
             // Automobile, Motorbike , Bike, Public_Transportation , Walking
-            sum += (trans_data(persona.mtran.to_string()) - 
-            trans_data(self.mtran[i].to_string())).powf(2.0);
+            sum += (trans_data(persona.mtran.to_string()) - trans_data(self.mtran[i].to_string()))
+                .powf(2.0);
             //----------------------------------------------
             /*
-            
-            valores de las distancias para cada caso 
-            
+
+            valores de las distancias para cada caso
+
             NO | Sometimes | Frequently | Always
-            0  |    0.33   |     0.66   |  0.99 
+            0  |    0.33   |     0.66   |  0.99
             */
-            
+
             // no , sometimes , frequently, always
-            sum += (categoric_data(persona.caec.to_string()) - 
-            categoric_data(self.caec[i].to_string())).powf(2.0);
-            
-            // no , sometimes, frequently , always 
-            sum += (categoric_data(persona.calc.to_string()) - 
-            categoric_data(self.calc[i].to_string())).powf(2.0);
+            sum += (categoric_data(persona.caec.to_string())
+                - categoric_data(self.caec[i].to_string()))
+            .powf(2.0);
+
+            // no , sometimes, frequently , always
+            sum += (categoric_data(persona.calc.to_string())
+                - categoric_data(self.calc[i].to_string()))
+            .powf(2.0);
 
             sum = sum.sqrt();
 
@@ -179,43 +195,40 @@ impl DataFrame {
         dist
     }
 
+    //Algoritmo de KNN implementado como un método dentro de DataFrame.
 
-    //Algoritmo de KNN implementado como un método dentro de DataFrame. 
-
-    pub fn knn( &mut self , mut k: i64 , persona: &Persona ) -> String {
+    pub fn knn(&mut self, mut k: i64, persona: &Persona) -> String {
         let ar = self.calc_distance(persona);
-        let mut res : String = String::from("");
-        let mut nearest : HashMap<&String , i32> = HashMap::new();
+        let mut res: String = String::from("");
+        let mut nearest: HashMap<&String, i32> = HashMap::new();
         let mut indx = 0;
-        
-        while k > 0 
-        {
-            let (_, tipo) = &ar[indx]; 
+
+        while k > 0 {
+            let (_, tipo) = &ar[indx];
             *nearest.entry(tipo).or_insert(0) += 1;
-            indx += 1; k -= 1;
+            indx += 1;
+            k -= 1;
             //si ya no faltan mas vecinos que recorrer
-            if k == 0{
+            if k == 0 {
                 let mut max = i32::MIN;
-                let mut flag:bool = false; 
+                let mut flag: bool = false;
                 //Buscamos la moda del tipo de obesidad
-                for (&nom , &cant) in &nearest{
+                for (&nom, &cant) in &nearest {
                     if cant > max {
                         res = nom.to_string();
                         max = cant;
                         flag = false;
-                    }
-                    else if cant == max{
+                    } else if cant == max {
                         flag = true;
                     }
                 }
-                //Si la moda se repite en 2 tipos de datos entonces 
+                //Si la moda se repite en 2 tipos de datos entonces
                 // aumentamos en 1 el k
-                if flag == true{
+                if flag == true {
                     k += 1;
                 }
             }
         }
         res
     }
-
 }
