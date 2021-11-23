@@ -327,4 +327,9 @@ impl Persona {
             nobey: "".to_string(),
         }
     }
+<<<<<<< HEAD
+=======
+    
+
+>>>>>>> f79cc575830d534242cdfcf418c646ba7272ec44
 }

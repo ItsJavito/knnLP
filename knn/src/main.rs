@@ -1,8 +1,13 @@
 extern crate csv;
+extern crate cpu_monitor;
 mod classes;
 use crate::classes::data_frame::DataFrame;
 use crate::classes::persona::Persona;
 use std::time::Instant;
+extern crate mem_macros;
+use std::io;
+use std::time::Duration;
+use cpu_monitor::CpuInstant;
 
 /**
  * Grupo
@@ -12,7 +17,9 @@ use std::time::Instant;
  * Fabrizio figari
 */
 
-fn main() {
+fn main() -> Result<() , io::Error> {
+    let mut memoria:f32;
+    memoria = 0.0;  
     //se lee la data desde el csv
     let mut data = DataFrame::read_csv("./data.csv", true);
     //creamos la persona y pedimos por consola los datos
@@ -38,9 +45,13 @@ fn main() {
     let k = 30;
     //hacemos el knn que nos dará como resultado el tipo de obesidad
     let start = Instant::now();
+    let startcpu = CpuInstant::now()?;
     persona.nobey = data.knn(k, &persona);
     let elapsed = start.elapsed();
+    let endcpu  = CpuInstant::now()?;
+    let durationcpu = endcpu - startcpu;
     // ejecutar con cargo run --release
     println!("Tiempo de ejecucion: {:?}", elapsed);
     println!("La clasificación de la persona es: {:?}", persona.nobey);
+    ok(())
 }
