@@ -145,7 +145,7 @@ knn <- function(k , distXtipo)
 }
 
 #leemos el csv
-data<-read.csv('data.csv')
+memoria_cambiada1 <-mem_change(data<-read.csv('data.csv'))
 
 persona <- c('Female', 15, 1.7 , 80, 'yes' , 'yes' , 2 , 2 , 'Always' , 'no' , 3 , 'yes', 0, 0, 'no','Walking')
 
@@ -157,9 +157,10 @@ end_time <- Sys.time()
 paste("Tiempo de ejecucion :" , (end_time - start_time)*1000 , "ms" , sept = " ")
 memoria_actual <- mem_used()
 paste("La memoria que está usando R actualmente: ",memoria_actual/1e6 ,"MB") #Divido entre 10^6 ya que el formato del paste le incluye decimales al número (envés de 67.7 sale 677)
-memoria_cambiada <- mem_change(resultado <- knn(30,calcDist(persona, data)))
+memoria_cambiada2 <- mem_change(resultado <- knn(30,calcDist(persona, data)))
 paste("La memoria que cambió después de la ejecución del algoritmo fue: ",memoria_cambiada ,"MB")
-
+memoriaTotal <- memoria_cambiada1 + memoria_cambiada2
+show(memoriaTotal)
 #Se saca el procentaje de cpu que está utilizando la instancia de Rstudio
 a <- system("wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime", intern = TRUE)
 df <- do.call(rbind, lapply(strsplit(a, " "), function(x) {x <- x[x != ""];data.frame(process = x[1], cpu = x[2])}))
