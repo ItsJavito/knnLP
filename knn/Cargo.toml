@@ -7,3 +7,5 @@ edition = "2018"
 
 [dependencies]
 csv = "1.1"
+cpu-monitor = "0.1.1"
+mem_macros = "1.0.0"
