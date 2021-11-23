@@ -63,4 +63,5 @@ fn main() -> Result<() , io::Error> {
     println!("{:?} MB", memoria/1048576.0);
     println!("cpu: {:.0}% ", durationcpu.non_idle() * 100.);
     Ok(())
+    
 }
